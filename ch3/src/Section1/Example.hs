@@ -85,3 +85,20 @@ filterNot f = filter (\x -> not $ f x)
 filterGovOrgs = filter (\case (GovOrgR _) -> True
                               _           -> False
                        )
+
+double :: [Integer] -> [Integer]
+
+{-
+   The symbol -> binds to the right
+   so the functions a -> b -> c -> d
+
+  a -> (b -> (c -> d)
+
+  Each function that takes multiple  params is a function
+  that takes one parameter and returns a partially applied
+  function
+
+  Partial application encourages a style of programming where params are not mentioned.
+-}
+
+double = map (*2)
