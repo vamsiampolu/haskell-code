@@ -1,6 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
 
-module Section1.Example where
+module Section1.Example (index, double) where
 
 {-
   Type parameters can be:
@@ -102,3 +102,31 @@ double :: [Integer] -> [Integer]
 -}
 
 double = map (*2)
+
+doubleOdds = map (*2) . filter odd
+
+-- uncurry :: (a -> b -> c) -> ((a,b) -> c)
+-- uncurry f = \(x,y) -> f x y
+
+-- curry :; ((a,b) -> c) -> (a -> b -> c)
+-- curry f = \x y -> f (x,y)
+
+-- performs parallel combination of two functions
+(***) :: (a -> b) -> (x -> y) -> ((a,x) -> (b, y))
+f *** g = \(x,y) -> (f x, g y)
+
+formula1 = uncurry (+) . (((* 7) . (+ 2)) *** (*3)) . duplicate
+
+{-
+  Combinators described:
+    |Symbol|Name|
+    |:----:|:---:|
+    | . | compose|
+    | $ | low priority fn call |
+    | uncurry | uncurry a function to take a tuple instead of 2 curried args|
+    | curry | curry a function that accepts a tuple to take 2 curried args|
+    | *** | parallel composition|
+    | flip | flip the order of args in a function|
+-}
+
+
